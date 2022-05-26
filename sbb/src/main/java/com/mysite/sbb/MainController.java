@@ -10,7 +10,7 @@ public class MainController {
 	@RequestMapping("/sbb") //경로 매핑
 	@ResponseBody //index 함수를 응답함수로 지정
 	public String index() {
-		return "안녕하세요 스프링부트입니다^^";
+		return "sbb";
 	}
 	
 }
