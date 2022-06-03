@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MainController {
 	
 	@RequestMapping("/sbb") //경로 매핑
-	@ResponseBody //index 함수를 응답함수로 지정
+	//@ResponseBody //index 함수를 응답함수로 지정
 	public String index() {
 		return "sbb";
 	}
