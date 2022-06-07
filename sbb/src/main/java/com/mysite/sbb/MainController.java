@@ -13,4 +13,9 @@ public class MainController {
 		return "sbb";
 	}
 	
+	@RequestMapping("/")
+	public String root() {
+		return "redirect:/question/list"; //해당 url로 리다이렉트
+	}
+	
 }
