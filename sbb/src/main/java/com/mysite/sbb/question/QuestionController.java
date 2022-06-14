@@ -1,5 +1,6 @@
 package com.mysite.sbb.question;
 
+//import org.h2.mvstore.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,12 +11,14 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import org.springframework.validation.BindingResult;
 
 import com.mysite.sbb.answer.AnswerForm;
+
+import org.springframework.data.domain.Page;
 
 @RequestMapping("/question") // url 프리픽스, 클래스 내 메소드 url 무조건 /question 붙고 시작
 @RequiredArgsConstructor
@@ -25,9 +28,9 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @RequestMapping("/list")
-    public String list(Model model) {
-        List<Question> questionList = this.questionService.getList();
-        model.addAttribute("questionList", questionList);
+    public String list(Model model, @RequestParam(value="page", defaultValue="0") int page) {
+        Page<Question> paging = this.questionService.getList(page);
+        model.addAttribute("paging", paging);
         return "question_list";
     }
 

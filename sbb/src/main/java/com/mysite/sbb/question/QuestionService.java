@@ -1,6 +1,8 @@
 package com.mysite.sbb.question;
 
 import java.util.List;
+import java.util.ArrayList;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
@@ -8,15 +10,22 @@ import java.util.Optional;
 import com.mysite.sbb.DataNotFoundException;
 import java.time.LocalDateTime;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable; //페이징 기능 추가
+import org.springframework.data.domain.PageRequest;
+
 @RequiredArgsConstructor
 @Service //데이터 처리를 위한 서비스 만들기
 public class QuestionService {
 	
 	private final QuestionRepository questionRepository;
-	
-	public List<Question> getList() {
-		return this.questionRepository.findAll();
-	}
+
+	public Page<Question> getList(int page) { //질문 목록 조회 + 페이징 서비스 추가
+        List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("createDate")); //작성일시 역순조건 추가 조회
+		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); 
+        return this.questionRepository.findAll(pageable);
+    }
 	
 	public Question getQuestion(Integer id) {
 		Optional<Question> question = this.questionRepository.findById(id);
@@ -35,4 +44,6 @@ public class QuestionService {
 		q.setCreateDate(LocalDateTime.now());
 		this.questionRepository.save(q);
 	}
+
+	
 }
