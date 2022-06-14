@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import org.springframework.validation.BindingResult;
 
+import com.mysite.sbb.answer.AnswerForm;
+
 @RequestMapping("/question") // url 프리픽스, 클래스 내 메소드 url 무조건 /question 붙고 시작
 @RequiredArgsConstructor
 @Controller
@@ -30,7 +32,7 @@ public class QuestionController {
     }
 
     @RequestMapping(value = "/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer id) {
+    public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
         Question question = this.questionService.getQuestion(id);
         model.addAttribute("question", question);
         return "question_detail";

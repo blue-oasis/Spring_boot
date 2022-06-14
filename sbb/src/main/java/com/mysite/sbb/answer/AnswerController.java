@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@RequestMapping("/answer") //url 프리픽스
+import javax.validation.Valid;
+import org.springframework.validation.BindingResult;
+
+@RequestMapping("/answer") // url 프리픽스
 @RequiredArgsConstructor
 @Controller
 public class AnswerController {
@@ -18,9 +21,15 @@ public class AnswerController {
     private final AnswerService answerService;
 
     @PostMapping("/create/{id}")
-    public String createAnswer(Model model, @PathVariable("id") Integer id, @RequestParam String content) {
+    public String createAnswer(Model model, @PathVariable("id") Integer id,
+            @Valid AnswerForm answerForm, BindingResult bindingResult) {
         Question question = this.questionService.getQuestion(id);
-        this.answerService.create(question, content); //답변 저장
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("question", question);
+            return "question_detail";
+        }
+        this.answerService.create(question, answerForm.getContent()); // 답변 저장
         return String.format("redirect:/question/detail/%s", id);
     }
 }
