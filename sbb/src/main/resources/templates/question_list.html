@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-<div class="container my-3">
+<html layout:decorate="~{layout}"> <!-- layout 템플릿 상속 -->
+<div layout:fragment="content" class="container my-3"> <!-- 부모 템플릿 block을 자식템플릿 내용으로 변경 -->
     <table class="table">
         <thead class="table-dark">
             <tr>
@@ -18,4 +18,6 @@
             </tr>
         </tbody>
     </table>
+    <a th:href="@{/question/create}" class="btn btn-primary">질문 등록하기</a>
 </div>
+</html>
