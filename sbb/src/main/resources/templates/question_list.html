@@ -13,7 +13,10 @@
                 <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
                 <td>
                 <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
-                </td> <!--객체의 제목텍스트를 세부 링크로 연결-->
+                    <!--객체의 제목텍스트를 세부 링크로 연결-->
+                    <span class="badge bg-light text-danger" th:if="${#lists.size(question.answerList) > 0}" th:text="${#lists.size(question.answerList)}">
+                    </span>
+                </td> 
                 <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
             </tr>
         </tbody>
@@ -32,7 +35,7 @@
                 </a>
             </li>
             <li th:each="page : ${#numbers.sequence(0, paging.totalPages-1)}"
-                th:if="${page >= paging.number-5 and page <= paging.number+5}"
+                th:if="${page >= paging.number-3 and page <= paging.number+3}"
                 th:classappend="${page == paging.number} ? 'active'" class="page-item">
                 <a th:text="${page + 1}" class="page-link" th:href="@{|?page=${page}|}"></a>
             </li> <!--페이지 번호 표기만 1부터 시작하게 수정함 링크걸때 주의!!! -->
