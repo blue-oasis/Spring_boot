@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 //PasswordEncoder bean 생성
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher; //로그아웃
 
 import com.mysite.sbb.user.UserSecurityService;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and().csrf().ignoringAntMatchers("/h2-console/**")
         .and().headers().addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
         //로그인 안해도 모든 페이지 접근 가능하게 오버라이딩 + h2 콘솔 csrf예외
-        .and().formLogin().loginPage("/user/login").defaultSuccessUrl("/");
+        .and().formLogin().loginPage("/user/login").defaultSuccessUrl("/")
         //스프링 시큐리티 로그인 설정, 로그인페이지 url 매핑, 로그인 성공시 이동 url
+        .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/user/logout")).logoutSuccessUrl("/")
+        .invalidateHttpSession(true);
+        //로그아웃 구현, 로그아웃 url, 로그아웃 성공 시 이동 url, 로그아웃시 사용자 세션 삭제
     }
 
     @Bean
