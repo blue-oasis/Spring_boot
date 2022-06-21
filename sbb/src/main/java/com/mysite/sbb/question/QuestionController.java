@@ -25,6 +25,9 @@ import com.mysite.sbb.user.SiteUser;
 import com.mysite.sbb.user.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 @RequestMapping("/question") // url 프리픽스, 클래스 내 메소드 url 무조건 /question 붙고 시작
 @RequiredArgsConstructor
 @Controller
@@ -64,4 +67,30 @@ public class QuestionController {
         return "redirect:/question/list"; // 저장 후 질문 목록으로 이동
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify/{id}") //오버라이딩 get 수정페이지 들어갈때, 질문 수정
+    public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
+        Question question = this.questionService.getQuestion(id);
+        if(!question.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        questionForm.setSubject(question.getSubject());
+        questionForm.setContent(question.getContent());
+        return "question_form";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{id}") //오버라이딩 Post 수정한거 저장, 질문 수정 , 로그인 유저와 작성자가 같을 때만 동작
+    public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult, 
+            Principal principal, @PathVariable("id") Integer id) {
+        if (bindingResult.hasErrors()) {
+            return "question_form";
+        }
+        Question question = this.questionService.getQuestion(id);
+        if (!question.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
+        return String.format("redirect:/question/detail/%s", id);
+    }
 }
