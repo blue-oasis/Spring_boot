@@ -1,7 +1,7 @@
 ## Welcome to Spring boot project!
 
 ### 스프링 부트를 이용한 게시판 프로젝트
-![image](https://velog.io/@hailey_/Springboot-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%9D%98-%EA%B8%B0%EB%B3%B8%EA%B5%AC%EC%A1%B0-%EB%B6%84%EC%84%9D)
+![image](https://melonicedlatte.com/assets/images/2021_3Q/spring_boot_logo.png)
 
 ### 주요 기능
 - 게시판 CRUD
