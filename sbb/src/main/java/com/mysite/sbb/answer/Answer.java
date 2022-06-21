@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.mysite.sbb.question.Question;
+import com.mysite.sbb.user.SiteUser;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,4 +29,7 @@ public class Answer {
 	
 	@ManyToOne //다대일 관계, 질문 1/답변 m
 	private Question question;
+
+	@ManyToOne
+	private SiteUser author;
 }

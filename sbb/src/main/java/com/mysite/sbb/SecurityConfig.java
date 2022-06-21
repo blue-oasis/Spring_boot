@@ -16,9 +16,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher; //�
 import com.mysite.sbb.user.UserSecurityService;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+
 @RequiredArgsConstructor
 @Configuration //스프링 환경설정 파일로 지정하는 어노테이션
-@EnableWebSecurity //모든 요성 url이 스프링 시큐리티 제어 받도록
+@EnableWebSecurity //모든 url이 스프링 시큐리티 제어 받도록
+@EnableGlobalMethodSecurity(prePostEnabled = true) //로그인 요소 판별 @PreAuthorize 동작
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {

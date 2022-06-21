@@ -14,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable; //페이징 기능 추가
 import org.springframework.data.domain.PageRequest;
 
+import com.mysite.sbb.user.SiteUser;
+
 @RequiredArgsConstructor
 @Service //데이터 처리를 위한 서비스 만들기
 public class QuestionService {
@@ -37,11 +39,12 @@ public class QuestionService {
 		}
 	}
 
-	public void create(String subject, String content) { //질문 저장 서비스
+	public void create(String subject, String content, SiteUser user) { //질문 저장 서비스
 		Question q = new Question();
 		q.setSubject(subject);
 		q.setContent(content);
 		q.setCreateDate(LocalDateTime.now());
+		q.setAuthor(user);
 		this.questionRepository.save(q);
 	}
 
