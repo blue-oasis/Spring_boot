@@ -31,7 +31,9 @@
     <form th:action="@{|/answer/create/${question.id}|}" th:object="${answerForm}" method="post" class="my-3">
         <!--에러 메시지 처리 th:replace="form_errors(html 파일의) :: formErrorsFragment(속성명)으로 div교체 공통 템플릿 사용-->
         <div th:replace="form_errors :: formErrorsFragment"></div>
-        <textarea th:field="*{content}" id="content" rows="10" class="form-control"></textarea>
+        <!--로그아웃 시 답변 작성 textarea 비활성 -->
+        <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" id="content" rows="10" class="form-control"></textarea>
+        <textarea sec:authorize="isAuthenticated()" th:field="*{content}" id="content" rows="10" class="form-control"></textarea>
         <input type="submit" value="답변등록" class="btn btn-primary my-2"> 
     </form>
 </div>
