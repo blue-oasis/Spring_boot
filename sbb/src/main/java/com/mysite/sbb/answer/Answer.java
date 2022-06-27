@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
+import java.util.Set;
 
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.user.SiteUser;
@@ -34,4 +36,7 @@ public class Answer {
 	private SiteUser author;
 
 	private LocalDateTime modifyDate;
+
+	@ManyToMany
+	Set<SiteUser> voter;
 }

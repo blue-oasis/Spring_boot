@@ -2,6 +2,7 @@ package com.mysite.sbb.question;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import com.mysite.sbb.user.SiteUser;
 
 import com.mysite.sbb.answer.Answer;
@@ -41,4 +43,7 @@ public class Question {
 	private SiteUser author;
 
 	private LocalDateTime modifyDate;
+
+	@ManyToMany
+	Set<SiteUser> voter; //set 중복제거
 }
