@@ -9,7 +9,7 @@
 - 회원가입
 - 게시물 리스트 페이징
 
-**작성 중**
+
 <!--
 You can use the [editor on GitHub](https://github.com/blue-oasis/Spring_boot/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
