@@ -31,5 +31,9 @@ dependencies {
 }
 // ./gradlew 갱신
 tasks.named('test') {
-	useJUnitPlatform()
+	useJUnitPlatform() //./gradlew 
 }
+
+// 의존성 초기화 /gradlew build --refresh-dependencies
+//되다가 그냥 안될때 ^^.. c/user/user/.gradle/caches/modules-2/files-2.1/중에 오류난거 찾아서 지우고
+// 리프레쉬
